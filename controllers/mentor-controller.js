@@ -38,10 +38,43 @@ module.exports = {
 
   getAllMentor: async (req, res) => {
     try {
-      let mentors = await Mentor.find({});
+      //masukin query parameter
+      const { studi, nama: namaLengkap } = req.query;
+      const pageNumber = parseInt(req.query.page, 10) || 1; // Default to 1 if not provided
+      const limitNumber = 4; // Set the limit to 4
+
+      const query = {};
+      // query name bisa pakai "" dan case insensitive
+      if (namaLengkap) {
+        const cleanName = namaLengkap.replace(/"/g, "");
+        query.namaLengkap = { $regex: new RegExp(cleanName, "i") };
+      }
+      if (studi) {
+        const cleanStudi = studi.replace(/"/g, "");
+        query.studi = { $regex: new RegExp(cleanStudi, "i") };
+      }
+
+      const skip = (pageNumber - 1) * limitNumber;
+
+      let mentors = await Mentor.find(query).skip(skip).limit(limitNumber);
+
+      const totalCount = await Mentor.countDocuments(query);
+      const totalPages = Math.ceil(totalCount / limitNumber);
+
+      if (!mentors.length) {
+        return res.status(404).json({ message: "Mentor tidak ada" });
+      }
+
+      // let mentors = await Mentor.find({});
 
       res.status(200).json({
         message: "Berhasil mendapatkan semua data Mentor",
+        pagination: {
+          currentPage: pageNumber,
+          totalItems: totalCount,
+          totalPages: totalPages,
+          limit: limitNumber,
+        },
         data: mentors,
       });
     } catch (error) {
