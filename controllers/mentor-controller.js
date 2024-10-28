@@ -39,16 +39,24 @@ module.exports = {
   getAllMentor: async (req, res) => {
     try {
       //masukin query parameter
-      const { studi, nama: namaLengkap } = req.query;
-      const pageNumber = parseInt(req.query.page, 10) || 1; // Default to 1 if not provided
-      const limitNumber = 4; // Set the limit to 4
+      const { studi, search: namaLengkap, ...otherParams } = req.query;
+      const pageNumber = parseInt(req.query.page, 10) || 1;
+      const limitNumber = 4;
+
+      if (otherParams.all) delete otherParams.all;
 
       const query = {};
       // query name bisa pakai "" dan case insensitive
       if (namaLengkap) {
-        const cleanName = namaLengkap.replace(/"/g, "");
-        query.namaLengkap = { $regex: new RegExp(cleanName, "i") };
+        const cleanInput = namaLengkap.replace(/"/g, ""); // Clean the input
+        const regex = new RegExp(cleanInput, "i"); // Case-insensitive regex
+
+        query.$or = [
+          { namaLengkap: { $regex: regex } },
+          { universitas: { $regex: regex } },
+        ];
       }
+
       if (studi) {
         const cleanStudi = studi.replace(/"/g, "");
         query.studi = { $regex: new RegExp(cleanStudi, "i") };

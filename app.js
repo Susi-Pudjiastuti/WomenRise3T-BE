@@ -14,9 +14,9 @@ db.then(() => {
   console.log("gagal connect ke db womenrise3t");
 });
 
+app.use(cors());
 app.use(express.json());
 app.use(allRoutes); // import routing endpoint
-app.use(cors());
 
 app.listen(PORT, () => {
   console.log("server running on PORT " + 3000);
