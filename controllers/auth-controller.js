@@ -40,26 +40,36 @@ module.exports = {
         }
     },
     login: async(req,res) => {
-        const data = req.body
+        try{
+            const data = req.body
 
-       const email = await User.findOne({email: data.email}).exec() //cari data dlm databaase
-       //jika email tidak sama
-        if (!email) {
-            return  res.status(401).json({message: "gagal login"})
+            const user = await User.findOne({email: data.email}).exec() //cari data dlm databaase
+            //jika email tidak sama
+                if (!user) {
+                    return  res.status(401).json({message: "E-mail atau password anda salah"})
+                }
+
+            const checkPassword = bcrypt.compareSync(data.password, user.password)
+            //jika password false
+            if (!checkPassword) {
+                    return  res.status(401).json({message:"E-mail atau password anda salah"});
+            }
+                
+                //buat token
+                const token = jwt.sign({username: user.username}, process.env.JWT_KEY,{ expiresIn: "1h" })
+
+                res.status(200).json({
+                    message: "berhasil login",
+                    token,
+                })
+        } catch(error){
+            console.error("Error ketika login", error);
+
+            res.status(500).json({
+                message: "Server error ketika login",
+                error: error.message
+            });
         }
-
-       const checkPassword = bcrypt.compareSync(data.password, User.password)
-       //jika password false
-       if (!checkPassword) {
-            return  res.status(401).json({message:"gagal login"});
-       }
         
-        //buat token
-        const token = jwt.sign({username: user.username}, process.env.JWT_KEY,{ expiresIn: "1h" })
-
-        res.status(200).json({
-            message: "berhasil login",
-            token,
-        })
     }
 }
