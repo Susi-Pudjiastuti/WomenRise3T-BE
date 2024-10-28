@@ -42,13 +42,13 @@ module.exports = {
     login: async(req,res) => {
         const data = req.body
 
-       const user = await User.findOne({username: data.username}).exec() //cari data dlm databaase
-       //jika username tidak sama
-        if (!user) {
+       const email = await User.findOne({email: data.email}).exec() //cari data dlm databaase
+       //jika email tidak sama
+        if (!email) {
             return  res.status(401).json({message: "gagal login"})
         }
 
-       const checkPassword = bcrypt.compareSync(data.password, user.password)
+       const checkPassword = bcrypt.compareSync(data.password, User.password)
        //jika password false
        if (!checkPassword) {
             return  res.status(401).json({message:"gagal login"});
@@ -61,6 +61,5 @@ module.exports = {
             message: "berhasil login",
             token,
         })
-    },
-    getUser: async(req,res) => {}
+    }
 }
