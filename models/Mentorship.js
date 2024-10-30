@@ -41,7 +41,7 @@ mentorshipSchema.pre("save", function (next) {
 mentorshipSchema.pre("findOneAndUpdate", function (next) {
   const update = this.getUpdate();
   if (update.tanggal) {
-    update.status = new Date(update.tanggal) >= new Date(); // Update status based on new date
+    update.status = new Date(update.tanggal) >= new Date();
   }
   next();
 });
