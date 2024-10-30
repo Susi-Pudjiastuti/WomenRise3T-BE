@@ -56,7 +56,7 @@ module.exports = {
             }
                 
                 //buat token
-                const token = jwt.sign({email: user.email}, process.env.PRIVATE_KEY,{ expiresIn: "1h" })
+                const token = jwt.sign({email: user.email, id: user._id}, process.env.PRIVATE_KEY,{ expiresIn: "1h" })
         
                 res.status(200).json({
                     message: "berhasil login",
