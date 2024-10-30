@@ -5,8 +5,9 @@ const { getUser, updateEmail } = require("../controllers/user-controller")
 const route = express.Router()
 
 //route untuk mengambil data user berdasarkan id
-route.get("/user/:id", getUser)
+route.get("/", getUser)
+
 //mengupdate email
-route.put("/user/:id", updateEmail)
+route.put("/", updateEmail)
 
 module.exports = route

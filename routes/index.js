@@ -3,7 +3,8 @@ const route = express.Router();
 
 const authRoute = require("./auth-route")
 const mentorRoute = require("./mentor-route");
-const userRoute = require("./user-route")
+const userRoute = require("./user-route");
+const { validateToken } = require("../middleware/auth");
 
 route.get("/", (req, res) => {
   res.json({
@@ -12,7 +13,7 @@ route.get("/", (req, res) => {
 });
 
 route.use("/auth", authRoute);
-route.use("/user", userRoute)
+route.use("/user", validateToken, userRoute)
 route.use("/mentors", mentorRoute);
 
 module.exports = route;

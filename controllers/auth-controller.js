@@ -44,7 +44,7 @@ module.exports = {
             const data = req.body
 
             const user = await User.findOne({email: data.email}).exec() //cari data dlm databaase
-            //jika email tidak sama
+            //jika tidak ada data tersebut dlm db
                 if (!user) {
                     return  res.status(401).json({message: "E-mail atau password anda salah"})
                 }
@@ -56,8 +56,8 @@ module.exports = {
             }
                 
                 //buat token
-                const token = jwt.sign({username: user.username}, process.env.JWT_KEY,{ expiresIn: "1h" })
-
+                const token = jwt.sign({email: user.email}, process.env.PRIVATE_KEY,{ expiresIn: "1h" })
+        
                 res.status(200).json({
                     message: "berhasil login",
                     token,
