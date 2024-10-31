@@ -1,5 +1,5 @@
 const express = require("express")
-const { getUser, updateEmail } = require("../controllers/user-controller")
+const { getUser, updateEmail, resetPassword } = require("../controllers/user-controller")
 
 
 const route = express.Router()
@@ -8,6 +8,7 @@ const route = express.Router()
 route.get("/", getUser)
 
 //mengupdate email
-route.put("/", updateEmail)
+route.put("/update/email", updateEmail)
+route.put("/update/password", resetPassword)
 
 module.exports = route

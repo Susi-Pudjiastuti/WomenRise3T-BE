@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken")
+const bcrypt = require("bcrypt")
 const User = require("../models/User")
 
 module.exports = {
@@ -29,7 +30,7 @@ module.exports = {
     updateEmail: async(req,res) => {
         try{
             const data  = req.body.email;
-            // console.log(data)
+
             const userId = req.payload.id; 
             // Cek apabila email sudah ada di db
             const email = await User.findOne({email: data}).exec();
@@ -56,35 +57,31 @@ module.exports = {
             });
         }
     },
-    // resetPassword: async(req,res) => {
-    //     try{
-    //         const data = req.body;
-    //         const email = req.payload.email;
+    resetPassword: async(req,res) => {
+        try{
+            const data = req.body;
+            const userId = req.payload.id; 
 
-    //         //hash pass
-    //         const salt = bcrypt.genSaltSync(10);
-    //         const hash = bcrypt.hashSync(data, salt);
-    //         data = hash;
+            //hash pass
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(data.password, salt);
+            data.password = hash;
 
-    //         console.log(data)
-    //         const user = await User.findOneAndUpdate({ email }, data).exec();
+            // update passord berdasarkan id
+            const user = await User.findByIdAndUpdate(userId, {password: data.password} ,{ new: true }).exec();
 
-    //         if (!user) {
-    //             return res.status(404).json({ message: "User not found" });
-    //         }
-
-    //         res.status(200).json({
-    //             message: "E-mail user berhasil diperbarui.",
+            res.status(200).json({
+                message: "Password berhasil diperbarui.",
                 
-    //         });
+            });
             
-    //     } catch(error){
-    //         console.log("Gagal mengambil data user:",error)
+        } catch(error){
+            console.log("Gagal reset password:",error)
 
-    //         res.status(500).json({
-    //             message: "Server error ketika mengambil data user.",
-    //             error: error.message,
-    //         });
-    //     }
-    // }
+            res.status(500).json({
+                message: "Server error ketika reset password",
+                error: error.message,
+            });
+        }
+    }
 }
