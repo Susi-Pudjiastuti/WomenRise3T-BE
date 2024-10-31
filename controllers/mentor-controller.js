@@ -98,9 +98,12 @@ module.exports = {
       const data = await Mentor.findById(req.params.id).exec();
 
       if (!data) {
-        return res
-          .status(404)
-          .json({ message: `Mentor ${req.params.id} tidak ditemukan` });
+        return (
+          res
+            .status(404)
+            .json({ message: `Mentor ${req.params.id} tidak ditemukan` }),
+          data
+        );
       }
 
       res.status(200).json({

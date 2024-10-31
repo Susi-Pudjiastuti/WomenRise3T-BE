@@ -26,7 +26,7 @@ cron.schedule("0 0 * * *", async () => {
       { tanggal: { $lt: currentDate } },
       { $set: { status: false } }
     );
-    console.log("Updated expired mentorship records at midnight");
+    console.log("Updated expired mentorship at midnight");
   } catch (error) {
     console.error("Error updating mentorship records:", error);
   }
