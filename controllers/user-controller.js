@@ -70,6 +70,11 @@ module.exports = {
             // update passord berdasarkan id
             const user = await User.findByIdAndUpdate(userId, {password: data.password} ,{ new: true }).exec();
 
+            if (!user) {
+                return res.status(404).json({
+                    message: "User tidak ditemukan"
+                });
+            }
             res.status(200).json({
                 message: "Password berhasil diperbarui.",
                 
