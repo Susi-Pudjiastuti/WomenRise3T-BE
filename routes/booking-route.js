@@ -9,7 +9,7 @@ route.get("/", getAllBooking)
 route.post("/", addBooking)
 
 //delete booking berdasarkan id
-route.delete("/:id", deleteBooking)
+route.delete("/", deleteBooking)
 
 
 module.exports = route
