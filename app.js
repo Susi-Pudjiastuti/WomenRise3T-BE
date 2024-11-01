@@ -7,6 +7,7 @@ const cron = require("node-cron");
 
 const allRoutes = require("./routes"); // import routing endpoint
 const db = require("./db");
+const Mentorship = require("./models/Mentorship");
 
 // cek koneksi db
 db.then(() => {

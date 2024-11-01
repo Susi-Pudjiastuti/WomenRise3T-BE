@@ -39,7 +39,13 @@ module.exports = {
   getAllMentor: async (req, res) => {
     try {
       //masukin query parameter
-      const { studi, search: namaLengkap, ...otherParams } = req.query;
+      const {
+        studi,
+        daerah: asalDaerah,
+        search: namaLengkap,
+        ...otherParams
+      } = req.query;
+
       const pageNumber = parseInt(req.query.page, 10) || 1;
       const limitNumber = 4;
 
@@ -60,6 +66,11 @@ module.exports = {
       if (studi) {
         const cleanStudi = studi.replace(/"/g, "");
         query.studi = { $regex: new RegExp(cleanStudi, "i") };
+      }
+
+      if (asalDaerah) {
+        const cleanDaerah = asalDaerah.replace(/"/g, "");
+        query.asalDaerah = { $regex: new RegExp(cleanDaerah, "i") };
       }
 
       const skip = (pageNumber - 1) * limitNumber;
