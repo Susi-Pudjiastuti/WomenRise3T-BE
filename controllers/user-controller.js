@@ -88,5 +88,22 @@ module.exports = {
                 error: error.message,
             });
         }
+    },
+    getUserTestimonies: async(req,res) => {
+        try{
+            const dataTestimonies = await User.find({testimoni: { $exists: true, $ne: null, $ne: "" }}, "namaLengkap asalDaerah avatar testimoni").exec()
+            // console.log(dataTestimonies)
+            res.status(200).json({
+                message: "Berhasil mengambil semua testimoni user",
+                dataTestimonies
+            });
+        }catch(error){
+            console.log("Gagal:",error)
+
+            res.status(500).json({
+                message: "Server error ketika mengambil testimoni user",
+                error: error.message,
+            });
+        }
     }
 }
