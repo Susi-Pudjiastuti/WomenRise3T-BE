@@ -11,7 +11,8 @@ module.exports = {
             const query = {user: userId}
 
             //mencari data berdasar
-            const data = await Booking.find(query).populate('mentorship').populate('user');
+            const data = await Booking.find(query) .populate('mentorship')
+            // .populate('user');
 
         // filter data berdasarkan status mentorship
         const filteredData = data.filter(booking => 
@@ -40,6 +41,7 @@ module.exports = {
         try{
             userId = req.payload.id; 
             console.log(userId)
+            
             const data = req.body; // input data
 
             //cari mentorship

@@ -15,7 +15,7 @@ route.get("/", (req, res) => {
 });
 
 route.use("/auth", authRoute);
-route.use("/user", validateToken, userRoute)
+route.use("/users", userRoute)
 route.use("/mentors", mentorRoute);
 route.use("/mentorships", mentorshipRoute);
 route.use("/bookings", validateToken, bookingRoute)
