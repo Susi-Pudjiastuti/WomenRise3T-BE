@@ -1,4 +1,5 @@
 const Booking = require("../models/Booking");
+const Mentorship = require("../models/Mentorship");
 
 module.exports = {
     getAllBooking: async(req,res) => {
@@ -39,7 +40,7 @@ module.exports = {
     },
     addBooking: async(req,res) => {
         try{
-            userId = req.payload.id; 
+            const userId = req.payload.id; 
             console.log(userId)
             
             const data = req.body; // input data
@@ -51,22 +52,41 @@ module.exports = {
             }).populate({
                 path: 'mentorship'
             });
-            console.log(data.mentorship)
-            console.log(await Booking.findOne({user: userId}))
-            console.log("Found booking:", kelasSama);
+            // console.log(data.mentorship)
+            // console.log(await Booking.findOne({user: userId}))
+            // console.log("Found booking:", kelasSama);
             if (kelasSama) {
                 return res.status(404).json({
                     message: "Anda sudah mendaftarkan kelas ini",
                 });
             }
 
-            data.user = req.payload.id; //memasukkan user berdasarkan id dari payload, ke dalam data input booking
+            // mencari kelas mentorship dan cek slot
+            const mentorship = await Mentorship.findById(data.mentorship);
+            if (!mentorship) {
+                return res.status(404).json({
+                    message: "Mentorship tidak ditemukan",
+                });
+            }
+
+            if (mentorship.slot <= 0) {
+                return res.status(400).json({
+                    message: "Slot sudah penuh",
+                });
+            }
+
+            // Kurangi slot mentorship
+            mentorship.slot -= 1;
+            await mentorship.save();
+
+            data.user = userId; //memasukkan user berdasarkan id dari payload, ke dalam data input booking
             
             const newBooking = new Booking(data);
             await newBooking.save(); // save to database
 
             res.status(201).json({
                 message: "Booking berhasil dibuat",
+                newBooking
             });
         }catch(error){
             console.error("Error:", error.message, error);
