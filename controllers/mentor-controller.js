@@ -103,6 +103,72 @@ module.exports = {
       });
     }
   },
+  // getAllMentor: async (req, res) => {
+  //   try {
+  //     const {
+  //       studi,
+  //       daerah: asalDaerah,
+  //       search: namaLengkap,
+  //       ...otherParams
+  //     } = req.query;
+
+  //     const pageNumber = parseInt(req.query.page, 10) || 1;
+  //     const limitNumber = 4;
+
+  //     if (otherParams.all) delete otherParams.all;
+
+  //     const query = {};
+  //     // query name bisa pakai "" dan case insensitive
+  //     if (namaLengkap) {
+  //       const cleanInput = namaLengkap.replace(/"/g, ""); // Clean the input
+  //       const regex = new RegExp(cleanInput, "i"); // Case-insensitive regex
+
+  //       query.$or = [
+  //         { namaLengkap: { $regex: regex } },
+  //         { universitas: { $regex: regex } },
+  //       ];
+  //     }
+
+  //     if (studi) {
+  //       const cleanStudi = studi.replace(/"/g, "");
+  //       query.studi = { $regex: new RegExp(cleanStudi, "i") };
+  //     }
+
+  //     if (asalDaerah) {
+  //       const cleanDaerah = asalDaerah.replace(/"/g, "");
+  //       query.asalDaerah = { $regex: new RegExp(cleanDaerah, "i") };
+  //     }
+
+  //     const skip = (pageNumber - 1) * limitNumber;
+
+  //     const [mentors, totalCount] = await Promise.all([
+  //       Mentor.find(query).skip(skip).limit(limitNumber),
+  //       Mentor.countDocuments(query),
+  //     ]);
+
+  //     const totalPages = Math.ceil(totalCount / limitNumber);
+
+  //     if (!mentors.length) {
+  //       return res.status(404).json({ message: "Mentor tidak ada" });
+  //     }
+
+  //     res.status(200).json({
+  //       message: "Berhasil mendapatkan semua data Mentor",
+  //       pagination: {
+  //         currentPage: pageNumber,
+  //         totalItems: totalCount,
+  //         totalPages: totalPages,
+  //         limit: limitNumber,
+  //       },
+  //       data: mentors,
+  //     });
+  //   } catch (error) {
+  //     console.error("Error:", error.message, error);
+  //     res.status(500).json({
+  //       message: "Terjadi Error, Gagal mendapatkan semua data Mentor",
+  //     });
+  //   }
+  // },
 
   getMentorById: async (req, res) => {
     try {
