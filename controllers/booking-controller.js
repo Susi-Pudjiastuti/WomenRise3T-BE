@@ -12,7 +12,15 @@ module.exports = {
             const query = {user: userId}
 
             //mencari data berdasar
-            const data = await Booking.find(query) .populate('mentorship')
+            // const data = await Booking.find(query).populate('mentorship')
+            console.log(data)
+            const data = await Booking.find(query)
+            .populate({
+                path: 'mentorship',
+                populate: {
+                path: 'mentor', // This will populate the 'mentor' field inside 'mentorship'
+                },
+            });
             // .populate('user');
 
         // filter data berdasarkan status mentorship
