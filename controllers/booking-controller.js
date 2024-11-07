@@ -13,7 +13,7 @@ module.exports = {
 
             //mencari data berdasar
             // const data = await Booking.find(query).populate('mentorship')
-            console.log(data)
+            
             const data = await Booking.find(query)
             .populate({
                 path: 'mentorship',
@@ -22,6 +22,7 @@ module.exports = {
                 },
             });
             // .populate('user');
+            // console.log(data)
 
         // filter data berdasarkan status mentorship
         const filteredData = data.filter(booking => 
