@@ -20,6 +20,6 @@ route.use("/users", userRoute);
 route.use("/mentors", mentorRoute);
 route.use("/mentorships", mentorshipRoute);
 route.use("/bookings", validateToken, bookingRoute);
-route.use("/scholarships", validateToken, scholarshipRoute);
+route.use("/scholarships", scholarshipRoute);
 
 module.exports = route;
