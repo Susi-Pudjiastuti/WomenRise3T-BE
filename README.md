@@ -471,3 +471,206 @@ Scholarship
 ```
 
 
+## - POST /scholarships
+
+- Request body:
+
+```json
+{
+"namaUniversitas" : "string",
+"gambar" : "string",
+"linkBeasiswa" : "string",
+"tanggal" : "Date",
+"status" : "Boolean",
+"approved" : "Boolean",
+"daerahKhusus" : "string",
+"nama" : "string",
+"email" : "string",
+}
+```
+
+- Response (201 - Created)
+
+```json
+{
+  "message": "data Scholarship berhasil dibuat",
+  "data": "Object"
+}
+```
+
+- Response (400 - Bad Request)
+
+```json
+{
+  "message": "Gagal membuat data scholarship, pastikan data title telah diinput"
+}
+```
+
+## - POST /scholarships/seeder
+
+- Request body:
+
+```json
+[
+  {
+"namaUniversitas" : "string",
+"gambar" : "string",
+"linkBeasiswa" : "string",
+"tanggal" : "Date",
+"status" : "Boolean",
+"approved" : "Boolean",
+"daerahKhusus" : "string",
+"nama" : "string",
+"email" : "string",
+  },
+  {
+"namaUniversitas" : "string",
+"gambar" : "string",
+"linkBeasiswa" : "string",
+"tanggal" : "Date",
+"status" : "Boolean",
+"approved" : "Boolean",
+"daerahKhusus" : "string",
+"nama" : "string",
+"email" : "string",
+  },
+  {
+"namaUniversitas" : "string",
+"gambar" : "string",
+"linkBeasiswa" : "string",
+"tanggal" : "Date",
+"status" : "Boolean",
+"approved" : "Boolean",
+"daerahKhusus" : "string",
+"nama" : "string",
+"email" : "string",
+  }
+]
+```
+
+- Response (201 - Created)
+
+```json
+{
+  "message": "data Bulk Scholarship berhasil dibuat",
+  "data": "Array of Object"
+}
+```
+
+- Response (400 - Bad Request)
+
+```json
+{
+  "message": "Gagal membuat data Bulk Scholarship, pastikan data title sudah benar"
+}
+```
+
+## - GET /scholarships
+
+- Response (200 - OK)
+
+```json
+{
+  "message": "Berhasil mendapatkan semua data Scholarship",
+  "data": "Array of Object"
+}
+```
+
+- Response (400 - Bad Request)
+
+```json
+{
+  "message": "Terjadi Error, Gagal mendapatkan semua data scholarship"
+}
+```
+
+## - GET /scholarships/:id
+
+- Response (200 - OK)
+
+```json
+{
+  "message": "Berhasil mendapatkan data Scholarship <id>",
+  "data": "Object"
+}
+```
+
+- Response (400 - Bad Request)
+
+```json
+{
+  "message": "Gagal mendapatkan data scholarship <id>"
+}
+```
+
+- Response (404 - Not Found)
+
+```json
+{
+  "message": "Scholarship <id> tidak ditemukan"
+}
+```
+
+## - PUT /scholarships/:id
+
+- Request body:
+
+```json
+{
+  "title": "string",
+  "done": "boolean"
+}
+```
+
+- Response (200 - OK)
+
+```json
+{
+  "message": "Berhasil mengedit data Scholarship <id>"
+}
+```
+
+- Response (400 - Bad Request)
+
+```json
+{
+  "message": "Gagal mengedit data scholarship <id>"
+}
+```
+
+- Response (404 - Not Found)
+
+```json
+{
+  "message": "Scholarship <id> tidak ditemukan"
+}
+```
+
+## - DELETE /scholarships/:id
+
+- Response (200 - OK)
+
+```json
+{
+  "message": "Berhasil menghapus data Scholarship <id>"
+}
+```
+
+- Response (400 - Bad Request)
+
+```json
+{
+  "message": "Terjadi Error, gagal menghapus data scholarship <id>"
+}
+```
+
+- Response (404 - Not Found)
+
+```json
+{
+  "message": "Scholarship <id> tidak ditemukan"
+}
+```
+
+
+
