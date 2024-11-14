@@ -280,3 +280,194 @@ Scholarship
 }
 ```
 
+
+## - POST /mentorships
+
+- Request body:
+
+```json
+{
+"tema" : "string",
+"tanggal" : "2024-10-12",
+"jam" : "string",
+"slot" : 10,
+"status" : false,
+"mentor" : "ref ID Mentor"
+}
+```
+
+- Response (201 - Created)
+
+```json
+{
+  "message": "data Kelas mentorship berhasil dibuat",
+  "data": "Object"
+}
+```
+
+- Response (400 - Bad Request)
+
+```json
+{
+  "message": "Gagal membuat data kelas mentorship, pastikan data title telah diinput"
+}
+```
+
+## - POST /mentorships/seeder
+
+- Request body:
+
+```json
+[
+  {
+"tema" : "string",
+"tanggal" : "2024-10-12",
+"jam" : "string",
+"slot" : 10,
+"status" : false,
+"mentor" : "ref ID Mentor"
+  },
+  {
+"tema" : "string",
+"tanggal" : "2024-10-12",
+"jam" : "string",
+"slot" : 10,
+"status" : false,
+"mentor" : "ref ID Mentor"
+  },
+  {
+"tema" : "string",
+"tanggal" : "2024-10-12",
+"jam" : "string",
+"slot" : 10,
+"status" : false,
+"mentor" : "ref ID Mentor"
+  }
+]
+```
+
+- Response (201 - Created)
+
+```json
+{
+  "message": "data Bulk Kelas mentorship berhasil dibuat",
+  "data": "Array of Object"
+}
+```
+
+- Response (400 - Bad Request)
+
+```json
+{
+  "message": "Gagal membuat data Bulk Kelas mentorship, pastikan data title sudah benar"
+}
+```
+
+## - GET /mentorships
+
+- Response (200 - OK)
+
+```json
+{
+  "message": "Berhasil mendapatkan semua data Kelas mentorship",
+  "data": "Array of Object"
+}
+```
+
+- Response (400 - Bad Request)
+
+```json
+{
+  "message": "Terjadi Error, Gagal mendapatkan semua data kelas mentorship"
+}
+```
+
+## - GET /mentorships/:id
+
+- Response (200 - OK)
+
+```json
+{
+  "message": "Berhasil mendapatkan data Kelas mentorship <id>",
+  "data": "Object"
+}
+```
+
+- Response (400 - Bad Request)
+
+```json
+{
+  "message": "Gagal mendapatkan data kelas mentorship <id>"
+}
+```
+
+- Response (404 - Not Found)
+
+```json
+{
+  "message": "Kelas mentorship <id> tidak ditemukan"
+}
+```
+
+## - PUT /mentorships/:id
+
+- Request body:
+
+```json
+{
+  "title": "string",
+  "done": "boolean"
+}
+```
+
+- Response (200 - OK)
+
+```json
+{
+  "message": "Berhasil mengedit data Kelas mentorship <id>"
+}
+```
+
+- Response (400 - Bad Request)
+
+```json
+{
+  "message": "Gagal mengedit data kelas mentorship <id>"
+}
+```
+
+- Response (404 - Not Found)
+
+```json
+{
+  "message": "Kelas mentorship <id> tidak ditemukan"
+}
+```
+
+## - DELETE /mentorships/:id
+
+- Response (200 - OK)
+
+```json
+{
+  "message": "Berhasil menghapus data Kelas mentorship <id>"
+}
+```
+
+- Response (400 - Bad Request)
+
+```json
+{
+  "message": "Terjadi Error, gagal menghapus data kelas mentorship <id>"
+}
+```
+
+- Response (404 - Not Found)
+
+```json
+{
+  "message": "Kelas mentorship <id> tidak ditemukan"
+}
+```
+
+
