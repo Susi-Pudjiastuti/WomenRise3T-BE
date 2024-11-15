@@ -73,6 +73,22 @@ Scholarship
 - daerahKhusus : string (required),
 - nama : string (required),
 - email : string (required)
+
+User
+- namaLengkap : string (required),
+- avatar : string (required),
+- email : string (required),
+- password : string (required),
+- asalDaerah : string (required),
+- testimoni : string
+
+Booking
+- namaPendaftar: string (required),
+- emailPendaftar: string (required),
+- noHp: string (required),
+- alasanMendaftar: string (required),
+- mentorship: ref ID Mentorship,
+- user: ref ID User
 ```
 
 ## - POST /mentors
@@ -672,5 +688,317 @@ Scholarship
 }
 ```
 
+## Authentication Routes
 
+### - POST /auth/regis  
+Registers a new user.
+
+- Request Body:
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "password123"
+  }
+  ```
+
+- Response (201 - Created):
+  ```json
+  {
+    "message": "Registration successful"
+  }
+  ```
+
+- Response (400 - Bad Request):
+  ```json
+  {
+    "message": "E-mail sudah terdaftar sebelumnya"
+  }
+  ```
+
+- Response (500 - Server Error):
+  ```json
+  {
+    "message": "Server error ketika registrasi",
+    "error": "<error details>"
+  }
+  ```
+
+---
+
+### - POST /auth/login  
+Logs in an existing user.
+
+- Request Body:
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "password123"
+  }
+  ```
+
+- Response (200 - OK):
+  ```json
+  {
+    "message": "berhasil login",
+    "token": "<JWT Token>",
+    "user": {
+      "_id": "<user_id>",
+      "email": "user@example.com"
+    }
+  }
+  ```
+
+- Response (401 - Unauthorized):
+  ```json
+  {
+    "message": "E-mail atau password anda salah"
+  }
+  ```
+
+- Response (500 - Server Error):
+  ```json
+  {
+    "message": "Server error ketika login",
+    "error": "<error details>"
+  }
+  ```
+
+---
+
+## User Routes
+
+### - GET /users  
+Fetches all user testimonies.
+
+- Response (200 - OK):
+  ```json
+  {
+    "message": "Berhasil mengambil semua testimoni user",
+    "dataTestimonies": [
+      {
+        "namaLengkap": "User A",
+        "asalDaerah": "Region A",
+        "avatar": "avatar_url",
+        "testimoni": "Great experience!"
+      }
+    ]
+  }
+  ```
+
+- Response (500 - Server Error):
+  ```json
+  {
+    "message": "Server error ketika mengambil testimoni user",
+    "error": "<error details>"
+  }
+  ```
+
+---
+
+### - GET /users/user  
+Fetches the logged-in user's data.  
+**Requires Token Validation**
+
+- Response (200 - OK):
+  ```json
+  {
+    "message": "User berhasil dicari",
+    "user": {
+      "_id": "<user_id>",
+      "email": "user@example.com"
+    }
+  }
+  ```
+
+- Response (404 - Not Found):
+  ```json
+  {
+    "message": "User not found"
+  }
+  ```
+
+- Response (500 - Server Error):
+  ```json
+  {
+    "message": "Server error ketika mengambil data user",
+    "error": "<error details>"
+  }
+  ```
+
+---
+
+### - PUT /users/update/email  
+Updates the user's email.  
+**Requires Token Validation**
+
+- Request Body:
+  ```json
+  {
+    "email": "new_email@example.com"
+  }
+  ```
+
+- Response (200 - OK):
+  ```json
+  {
+    "message": "E-mail user berhasil diperbarui.",
+    "newToken": "<New JWT Token>"
+  }
+  ```
+
+- Response (400 - Bad Request):
+  ```json
+  {
+    "message": "Email already in use"
+  }
+  ```
+
+- Response (500 - Server Error):
+  ```json
+  {
+    "message": "Server error ketika memperbarui e-mail",
+    "error": "<error details>"
+  }
+  ```
+
+---
+
+### - PUT /users/update/password  
+Resets the user's password.  
+**Requires Token Validation**
+
+- Request Body:
+  ```json
+  {
+    "password": "newPassword123"
+  }
+  ```
+
+- Response (200 - OK):
+  ```json
+  {
+    "message": "Password berhasil diperbarui."
+  }
+  ```
+
+- Response (500 - Server Error):
+  ```json
+  {
+    "message": "Server error ketika reset password",
+    "error": "<error details>"
+  }
+  ```
+
+---
+
+## Booking Routes
+
+### - GET /bookings  
+Fetches all bookings for the logged-in user.  
+**Requires Token Validation**
+
+- Response (200 - OK):
+  ```json
+  {
+    "message": "berhasil mendapatkan semua data booking",
+    "data": [
+      {
+        "mentorship": {
+          "status": true,
+          "mentor": {
+            "name": "Mentor A"
+          }
+        }
+      }
+    ]
+  }
+  ```
+
+- Response (500 - Server Error):
+  ```json
+  {
+    "message": "Terjadi Error, Gagal mendapatkan semua data Booking"
+  }
+  ```
+
+---
+
+### - POST /bookings  
+Creates a new booking.  
+**Requires Token Validation**
+
+- Request Body:
+  ```json
+  {
+    "mentorship": "<mentorship_id>"
+  }
+  ```
+
+- Response (201 - Created):
+  ```json
+  {
+    "message": "Booking berhasil dibuat",
+    "newBooking": {
+      "user": "<user_id>",
+      "mentorship": "<mentorship_id>"
+    }
+  }
+  ```
+
+- Response (400 - Bad Request):
+  ```json
+  {
+    "message": "Slot sudah penuh"
+  }
+  ```
+
+- Response (404 - Not Found):
+  ```json
+  {
+    "message": "Mentorship tidak ditemukan"
+  }
+  ```
+
+- Response (500 - Server Error):
+  ```json
+  {
+    "message": "Terjadi Error, Gagal menambahkan booking"
+  }
+  ```
+
+---
+
+### - DELETE /bookings  
+Deletes a booking.  
+**Requires Token Validation**
+
+- Request Query:
+  ```json
+  {
+    "idBooking": "<booking_id>"
+  }
+  ```
+
+- Response (200 - OK):
+  ```json
+  {
+    "message": "Booking berhasil dihapus"
+  }
+  ```
+
+- Response (404 - Not Found):
+  ```json
+  {
+    "message": "Booking tidak ditemukan atau Anda tidak memiliki izin untuk menghapus"
+  }
+  ```
+
+- Response (500 - Server Error):
+  ```json
+  {
+    "message": "Terjadi Error, Gagal menghapus booking"
+  }
+  ```
+
+--- 
 
