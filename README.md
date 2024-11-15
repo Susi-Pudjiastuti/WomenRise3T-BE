@@ -31,13 +31,17 @@ The goal of the WomenRise3T project is to design and develop a web service and R
   - [GET /scholarships/:id](#get-scholarshipsid)
   - [PUT /scholarships/:id](#put-scholarshipsid)
   - [DELETE /scholarships/:id](#delete-scholarshipsid)
-- [Authentication Routes](#authentication-routes)
+- [Authentication API](#authentication-api)
   - [POST /auth/regis](#post-authregis)
   - [POST /auth/login](#post-authlogin)
-- [User Routes](#user-routes)
+- [User API](#user-api)
   - [GET /users](#get-users)
   - [GET /users/user](#get-usersuser)
   - [PUT /users/update/email](#put-usersupdateemail)
+- [Booking API](#booking-api)
+  - [GET /bookings](#--get-bookings)
+  - [POST /bookings](#--post-bookings)
+  - [DELETE /bookings](#--delete-bookings)
 
 
 ## Installation & Setup
@@ -726,7 +730,7 @@ Booking
 }
 ```
 
-## Authentication Routes
+## Authentication API
 
 ### - POST /auth/regis  
 Registers a new user.
@@ -803,7 +807,7 @@ Logs in an existing user.
 
 ---
 
-## User Routes
+## User API
 
 ### - GET /users  
 Fetches all user testimonies.
@@ -929,7 +933,7 @@ Resets the user's password.
 
 ---
 
-## Booking Routes
+## Booking API
 
 ### - GET /bookings  
 Fetches all bookings for the logged-in user.  
