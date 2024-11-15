@@ -2,6 +2,44 @@
 ### Building Web Service & RESTful API for WomenRise3T with Express
 The goal of the WomenRise3T project is to design and develop a web service and RESTful API for managing scholarship mentorship resources specifically tailored to marginalized women in Indonesia's 3T (terdepan, terluar, tertinggal) regions. This service, built with Node.js and Express, forming a comprehensive backend for the WomenRise3T application. The application will leverage MongoDB as the primary database and Mongoose as the ODM to facilitate seamless data modeling and integration. Authentication handled by JWT (JSON Web Tokens).
 
+# Table of Contents
+
+- [API Documentation](#api-documentation)
+  - [Building Web Service & RESTful API for WomenRise3T with Express](#building-web-service--restful-api-for-womenrise3t-with-express)
+- [Installation & Setup](#installation--setup)
+  - [Prerequisites](#prerequisites)
+  - [Step-by-Step Setup](#step-by-step-setup)
+- [Models](#models)
+- [Mentors API](#mentors-api)
+  - [POST /mentors](#post-mentors)
+  - [POST /mentors/seeder](#post-mentorsseeder)
+  - [GET /mentors](#get-mentors)
+  - [GET /mentors/:id](#get-mentorsid)
+  - [PUT /mentors/:id](#put-mentorsid)
+  - [DELETE /mentors/:id](#delete-mentorsid)
+- [Mentorships API](#mentorships-api)
+  - [POST /mentorships](#post-mentorships)
+  - [POST /mentorships/seeder](#post-mentorshipsseeder)
+  - [GET /mentorships](#get-mentorships)
+  - [GET /mentorships/:id](#get-mentorshipsid)
+  - [PUT /mentorships/:id](#put-mentorshipsid)
+  - [DELETE /mentorships/:id](#delete-mentorshipsid)
+- [Scholarships API](#scholarships-api)
+  - [POST /scholarships](#post-scholarships)
+  - [POST /scholarships/seeder](#post-scholarshipsseeder)
+  - [GET /scholarships](#get-scholarships)
+  - [GET /scholarships/:id](#get-scholarshipsid)
+  - [PUT /scholarships/:id](#put-scholarshipsid)
+  - [DELETE /scholarships/:id](#delete-scholarshipsid)
+- [Authentication Routes](#authentication-routes)
+  - [POST /auth/regis](#post-authregis)
+  - [POST /auth/login](#post-authlogin)
+- [User Routes](#user-routes)
+  - [GET /users](#get-users)
+  - [GET /users/user](#get-usersuser)
+  - [PUT /users/update/email](#put-usersupdateemail)
+
+
 ## Installation & Setup
 #### Prerequisites
 Ensure you have the following installed on your system:
